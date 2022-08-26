@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller {
   
   public function auth(Request $request) {
@@ -24,7 +24,7 @@ class AuthController extends Controller {
       $output = [
         'message' => "User tidak ditemukan"
       ];
-      return response()->json($output, 404);
+      return response()->json($output, 422);
     }
 
     $isPasswordValid = Hash::check($password, $user->password);
@@ -36,6 +36,7 @@ class AuthController extends Controller {
       return response()->json($output, 422);
     }
     
+    
     $generateToken = bin2hex(random_bytes(40));
 
     $user->update([
@@ -45,4 +46,11 @@ class AuthController extends Controller {
     return response()->json($user);
   }
 
+  public function check() {
+    $output = [
+      'isLoggedIn' => Auth::check()
+    ];
+
+    return response()->json($output);
+  }
 }

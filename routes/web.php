@@ -19,3 +19,10 @@ $router->get('/', function () use ($router) {
 
 $router->post('/auth', 'AuthController@auth');
 $router->get('/me', 'UserController@me');
+$router->get('/check', 'UserController@check');
+
+$router->get('/visitor', 'VisitorController@index');
+$router->get('/visitor/count', 'VisitorController@count');
+$router->post('/visitor/create', 'VisitorController@create');
+$router->post('/visitor/manual', 'VisitorController@manual');
+$router->post('/visitor/scan/{id}', 'VisitorController@scan');

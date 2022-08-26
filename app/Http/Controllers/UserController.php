@@ -16,4 +16,13 @@ class UserController extends Controller {
     return Auth::user();
   }
 
+  public function check() {
+
+    $output = [
+      'isLoggedIn' => Auth::check()
+    ];
+
+    return response()->json($output);
+  }
+
 }
